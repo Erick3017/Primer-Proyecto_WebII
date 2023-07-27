@@ -1,0 +1,23 @@
+{
+  "name": "primer-proyecto_webii",
+  "version": "1.0.0",
+  "description": "primer proyecto web II",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Erick3017/Primer-Proyecto_WebII.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Erick3017/Primer-Proyecto_WebII/issues"
+  },
+  "homepage": "https://github.com/Erick3017/Primer-Proyecto_WebII#readme",
+  "devDependencies": {
+    "morgan": "^1.10.0"
+  }
+}
