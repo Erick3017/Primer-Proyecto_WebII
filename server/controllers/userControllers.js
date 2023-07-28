@@ -1,8 +1,8 @@
 // user.controller.js
-const User = require('../models/userModel');
+import User from '../models/userModel.js';
 
 // Registro de usuarios
-exports.registerUser = async (req, res) => {
+export async function registerUser(req, res) {
   try {
     // Crear un nuevo usuario a partir de los datos enviados en el formulario
     const user = new User(req.body);
@@ -12,10 +12,10 @@ exports.registerUser = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: 'Error al registrar el usuario' });
   }
-};
+}
 
 // Verificar usuario por parte del administrador
-exports.verifyUser = async (req, res) => {
+export async function verifyUser(req, res) {
   try {
     const { userId } = req.params;
     // Buscar el usuario por su ID y actualizar el campo "verified" a true
@@ -24,11 +24,11 @@ exports.verifyUser = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: 'Error al verificar el usuario' });
   }
-};
+}
 
 // Resto de los controladores para editar, eliminar y listar usuarios
 
-exports.updateUser = async (req, res) => {
+export async function updateUser(req, res) {
   try {
     const updateUser = await User.findByIdAndUpdate(
       req.params.id,
@@ -39,9 +39,9 @@ exports.updateUser = async (req, res) => {
     res.status(500).json({ error: 'Error al verificar el usuario' });
   }
 
-};
+}
 
-exports.deleteUser = async (req, res) => {
+export async function deleteUser(req, res) {
   try {
     await User.findByIdAndDelete(
       req.params.id);
@@ -50,9 +50,9 @@ exports.deleteUser = async (req, res) => {
     res.status(500).json({ error: 'Error al verificar el usuario' });
   }
 
-};
+}
 
-exports.getUsers = async (req,res,next) =>{
+export async function getUsers(req,res,next){
       
   try{
       const users = await User.find();
@@ -60,4 +60,4 @@ exports.getUsers = async (req,res,next) =>{
   }catch(error){
     res.status(500).json({ error: 'Error al verificar el usuario' });
   }
-};
+}

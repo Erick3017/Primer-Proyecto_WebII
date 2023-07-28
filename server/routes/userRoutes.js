@@ -1,12 +1,12 @@
 // user.routes.js
-const express = require('express');
-const router = express.Router();
-const userController = require('../controllers/userControllers');
+import { Router } from 'express';
+const router = Router();
+import { registerUser, verifyUser } from '../controllers/userControllers.js';
 
 // Rutas para la gestión de usuarios
-router.post('/register', userController.registerUser);
-router.put('/verify/:userId', userController.verifyUser);
+router.post('/register', registerUser);
+router.put('/verify/:userId', verifyUser);
 
 // Resto de las rutas para editar, eliminar y listar usuarios
 
-module.exports = router;
+export default router;
