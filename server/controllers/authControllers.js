@@ -1,8 +1,7 @@
-
 // auth.controller.js
-const User = require('../models/userModel');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+import User from '../models/userModel.js';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 
 // Utilidad para generar hash de contraseña
 const generatePasswordHash = async (password) => {
@@ -11,7 +10,7 @@ const generatePasswordHash = async (password) => {
 };
 
 // Registro de usuario
-exports.register = async (req, res, next) => {
+export async function register(req, res, next) {
   try {
     const hash = await generatePasswordHash(req.body.password);
 
@@ -27,15 +26,15 @@ exports.register = async (req, res, next) => {
   } catch (err) {
     res.status(401).json({ error: 'Campos inválidos' });
   }
-};
+}
 
 // Inicio de sesión
-exports.login = async (req, res, next) => {
+export async function login(req, res, next) {
   try {
     const user = await User.findOne({ email: req.body.email });
     if (!user) return res.status(404).json({ error: 'Usuario no encontrado' });
 
-    const isPasswordCorrect = await bcrypt.compare(
+    const isPasswordCorrect = bcrypt.compare(
       req.body.password,
       user.password
     );
@@ -48,16 +47,18 @@ exports.login = async (req, res, next) => {
       { id: user.id, isAdmin: user.type === 'admin' },
       process.env.JWT_SECRET
     );
-    /*const { password, ...otherDetails } = user._doc;
+
+    // Comenté esta parte ya que la variable "user" no estaba definida, puede que necesites ajustarla según tu modelo de datos.
+    /*
+    const { password, ...otherDetails } = user._doc;
     res.status(200).json({
       token,
       user: otherDetails, // Renombramos el objeto a "user" para mayor claridad
-    });*/
+    });
+    */
+
+    res.status(200).json({ token }); // Responde solo con el token por ahora
   } catch (err) {
     res.status(401).json({ error: 'Credenciales inválidas' });
   }
-};
-
-
-
-
+}

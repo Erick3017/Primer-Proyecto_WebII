@@ -1,9 +1,10 @@
 // auth.routes.js
-const express = require('express');
-const router = express.Router();
-const authController = require('../controllers/authControllers');
+import { Router } from 'express';
+const router = Router();
+import { login, register } from '../controllers/authControllers.js';
 
 // Ruta para la autenticación de usuarios
-router.post('/login', authController.login);
+router.post('/login', login);
+router.post('/register', register);
 
-module.exports = router;
+export default router;
