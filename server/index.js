@@ -1,10 +1,11 @@
+// index.js
 import express from "express";
-import dotenv from "dotenv";
 import mongoose from "mongoose";
+import dotenv from "dotenv";
 import cors from "cors";
-import authRoutes from "./routes/authRoutes";
-import promptRoutes from "./routes/promptRoutes";
-import userRoutes from "./routes/userRoutes";
+import authRoutes from "./routes/authRoutes.js";
+import promptRoutes from "./routes/promptRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
 
 dotenv.config();
 
@@ -34,14 +35,14 @@ const connect = async () => {
 };
 
 // Middleware para manejo de errores, con el orden corregido
-app.use((err, req, res, next) => {
-  const errorStatus = err.status || 500;
-  const errorMessage = err.message || 'Internal Server Error';
+app.use((error, req, res) => {
+  const errorStatus = error.status || 500;
+  const errorMessage = error.message || 'Internal Server Error';
   return res.status(errorStatus).json({
     success: false,
     message: errorMessage,
     status: errorStatus,
-    stack: err.stack,
+    stack: error.stack,
   });
 });
 
