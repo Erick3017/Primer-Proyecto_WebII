@@ -2,16 +2,25 @@
 import { Schema, model } from 'mongoose';
 
 const userSchema = new Schema({
-  name: String,
+  name: {
+    type: String,
+    require:true,
+    unique: true
+  },
   email: {
     type: String,
+    require:true,
     unique: true,
   },
-  password: String,
-  type: {
+  password: 
+  {
     type: String,
-    enum: ['admin', 'regular'],
-    default: 'regular',
+    require:true,
+    unique: true
+  },
+  type: {
+    type: Boolean,
+    default: false,
   },
   verified: {
     type: Boolean,
@@ -19,4 +28,4 @@ const userSchema = new Schema({
   },
 });
 
-export default model('User', userSchema);
+export default model("User", userSchema);

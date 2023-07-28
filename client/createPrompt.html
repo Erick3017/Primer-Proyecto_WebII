@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Crear Prompt</title>
+</head>
+<body>
+  <h1>Crear Prompt</h1>
+  <form action="../server/routes/promptRoutes.js" method="POST">
+    <label for="name">Nombre:</label>
+    <input type="text" id="name" name="name" required><br>
+
+    <label for="type">Tipo:</label>
+    <select id="type" name="type" required>
+      <option value="Edit">Edit</option>
+      <option value="Images">Images</option>
+    </select><br>
+
+    <label for="tags">Etiquetas (separadas por comas):</label>
+    <input type="text" id="tags" name="tags"><br>
+
+    <input type="submit" value="Crear Prompt">
+  </form>
+</body>
+</html>

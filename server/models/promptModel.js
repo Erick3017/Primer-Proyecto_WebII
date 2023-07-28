@@ -1,13 +1,21 @@
 // prompt.model.js
-const mongoose = require('mongoose');
+import { Schema, model } from 'mongoose';
 
-const promptSchema = new mongoose.Schema({
+const promptSchema = new Schema({
   name: String,
   type: {
     type: String,
-    enum: ['Edit', 'Images'],
+    enum: ['Edit', 'Images', 'Completitions'],
+  },
+  instruction: {
+    type: String,
+    require: true
+  },
+  userId: {
+    type: mongoose.ObjectId,
+    require: true,
   },
   tags: [String],
 });
 
-module.exports = mongoose.model('Prompt', promptSchema);
+export default model('Prompt', promptSchema);

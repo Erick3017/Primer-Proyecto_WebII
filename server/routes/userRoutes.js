@@ -1,12 +1,21 @@
-// user.routes.js
-import { Router } from 'express';
-const router = Router();
-import { registerUser, verifyUser } from '../controllers/userControllers.js';
+import express from "express";
+import {
+  updateUser,
+  getUser,
+  deleteUser,
+  getUsers,
+  registerUser,
+} from "../controllers/userControllers.js";
 
-// Rutas para la gestión de usuarios
-router.post('/register', registerUser);
-router.put('/verify/:userId', verifyUser);
+const router = express.Router();
 
-// Resto de las rutas para editar, eliminar y listar usuarios
+// Rutas protegidas que requieren autenticación de administrador
+router.post("/", registerUser);
+router.put("/:id",updateUser);
+router.delete("/:id",deleteUser);
+router.get("/",getUsers);
+
+// Ruta que permite a los usuarios autenticados acceder a su propia información
+router.get("/:id", getUser);
 
 export default router;

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Registro de Usuario</title>
+</head>
+<body>
+  <h1>Registro de Usuario</h1>
+  <form action="../server/routes/userRoutes.js" method="POST">
+    <label for="name">Nombre:</label>
+    <input type="text" id="name" name="name" required><br>
+
+    <label for="email">Correo electrónico:</label>
+    <input type="email" id="email" name="email" required><br>
+
+    <label for="password">Contraseña:</label>
+    <input type="password" id="password" name="password" required><br>
+
+    <input type="submit" value="Registrarse">
+  </form>
+</body>
+</html>

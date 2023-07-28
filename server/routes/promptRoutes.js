@@ -1,10 +1,23 @@
-// prompt.routes.js
-const express = require('express');
+import express from "express";
+import { verifyAuthorization } from "../verifyToken.js";
+import {
+  createPrompt,
+  updatePrompt,
+  deletePrompt,
+  getPrompt,
+  getPromptsByUser,
+} from "../controllers/promptControllers.js";
+
 const router = express.Router();
-const promptController = require('../controllers/promptControllers');
 
-// Rutas para la gestión de prompts
-router.post('/', promptController.createPrompt);
-// Resto de las rutas para editar, eliminar y listar prompts
+// Rutas que no requieren autenticación
+router.get("/", getPrompt);
+router.get("/:iduser", getPromptsByUser);
 
-module.exports = router;
+// Rutas que requieren autenticación
+router.use(verifyAuthorization);
+router.post("/", createPrompt);
+router.put("/:id", updatePrompt);
+router.delete("/:id", deletePrompt);
+
+export default router;

@@ -1,4 +1,3 @@
-// user.controller.js
 import User from '../models/userModel.js';
 
 // Registro de usuarios
@@ -7,8 +6,8 @@ export async function registerUser(req, res) {
     // Crear un nuevo usuario a partir de los datos enviados en el formulario
     const user = new User(req.body);
     // Guardar el usuario en la base de datos
-    await user.save();
-    res.status(200).json({ message: 'Usuario registrado correctamente' });
+    const savedUser = await user.save();
+    res.status(200).json({ savedUser, message: 'Usuario registrado correctamente' });
   } catch (error) {
     res.status(500).json({ error: 'Error al registrar el usuario' });
   }
@@ -33,31 +32,37 @@ export async function updateUser(req, res) {
     const updateUser = await User.findByIdAndUpdate(
       req.params.id,
       { $set: req.body },
-      { new: true });
+      { new: true }
+    );
     res.status(200).json(updateUser);
   } catch (error) {
-    res.status(500).json({ error: 'Error al verificar el usuario' });
+    res.status(500).json({ error: 'Error al actualizar el usuario' });
   }
-
 }
 
 export async function deleteUser(req, res) {
   try {
-    await User.findByIdAndDelete(
-      req.params.id);
-    res.status(200).json("User has been deleted");
+    await User.findByIdAndDelete(req.params.id);
+    res.status(200).json({ message: 'Usuario eliminado correctamente' });
   } catch (error) {
-    res.status(500).json({ error: 'Error al verificar el usuario' });
+    res.status(500).json({ error: 'Error al borrar el usuario' });
   }
-
 }
 
-export async function getUsers(req,res,next){
-      
-  try{
-      const users = await User.find();
-      res.status(200).json(users);
-  }catch(error){
-    res.status(500).json({ error: 'Error al verificar el usuario' });
+export async function getUser(req, res) {
+  try {
+    const user = await User.findById(req.params.id);
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({ error: 'Error al obtener el usuario' });
+  }
+}
+
+export async function getUsers(req, res) {
+  try {
+    const users = await User.find();
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ error: 'Error al obtener los usuarios' });
   }
 }
